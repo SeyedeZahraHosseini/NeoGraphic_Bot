@@ -63,7 +63,7 @@ def call_back(call):
         settings_method(call)
     elif call.data=='photo':
         bot.send_message(call.message.chat.id,'متنی که می خوای روی تصویر باشه رو برام بفرست \n الان جادوی نئو رو میبینی ✨')   
-        @bot.message_handler(func=lambda message:True)  
+        @bot.message_handler()  
         def text(message):
             bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
             my_text=message.text
@@ -71,7 +71,7 @@ def call_back(call):
                      
     elif call.data=='video':
         bot.send_message(call.message.chat.id,'متنی که می خوای روی ویدیو باشه رو برام بفرست \n الان جادوی نئو رو میبینی ✨')
-        @bot.message_handler(func=lambda message:True)  
+        @bot.message_handler()  
         def video(message):
             bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
             my_text=message.text
@@ -332,10 +332,11 @@ def generate_img(my_text,message,mode):
 
     Cursor.execute(""" SELECT * FROM settings WHERE user_id = ? """ , (message.chat.id,))
     result=Cursor.fetchone()
-    font=result[2]
-    background_type = result[3]
-    background_color = result[1]
-    background_path = result[4]
+    if result!=None:
+        font=result[2]
+        background_type = result[3]
+        background_color = result[1]
+        background_path = result[4]
     font_color="white"
     colors_list=["#55552F", "#3A4656" , "#670001" , "#3D392E" , "#866B4D", "#111111"]
 
