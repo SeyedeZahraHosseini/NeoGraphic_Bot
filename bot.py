@@ -14,9 +14,8 @@ from moviepy import *
 
 global back_color
 apihelper.API_URL = "https://tapi.bale.ai/bot{0}/{1}"
-
-TOKEN = os.getenv("TOKEN")
-bot = telebot.TeleBot(TOKEN)
+Token="603792:ZRk2hUFHWJ3jXuA8aKv3uSiga7SUmXBulq0"
+bot = telebot.TeleBot(Token)
 
 # region main_menu
 
