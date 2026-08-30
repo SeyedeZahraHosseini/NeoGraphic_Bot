@@ -1,5 +1,4 @@
 import telebot
-from telebot import apihelper
 from PIL import Image, ImageDraw, ImageFont
 import db
 from db import Cursor
@@ -13,10 +12,9 @@ from moviepy import *
 
 
 global back_color
-apihelper.API_URL = "https://tapi.bale.ai/bot{0}/{1}"
-Token="603792:ZRk2hUFHWJ3jXuA8aKv3uSiga7SUmXBulq0"
-bot = telebot.TeleBot(Token,threaded=False)
-print("🚀 BOT STARTED")
+telebot.apihelper.API_URL = "https://tapi.bale.ai/bot{0}/{1}"
+bot = telebot.TeleBot(os.environ['TOKEN'],threaded=False)
+
 
 # region main_menu
 
