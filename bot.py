@@ -78,7 +78,6 @@ def call_back(call):
 
     elif call.data=='color':
         choose_color(call)
-        # bot.send_message(call.message.chat.id,'حله ✔')
     elif call.data=='font':
         choose_font(call)
     elif call.data=='back_ground':
@@ -342,7 +341,7 @@ def generate_img(my_text,message,mode):
             img_size=(1080, 1080)
             abaad=(540,540)
     elif mode=="video":
-        img_size=(1080, 1920)
+        img_size=(1080, ~)
         abaad=(540,960)
     
     if background_type == "color":
