@@ -60,22 +60,23 @@ def call_back(call):
     if call.data=='settings':
         settings_method(call)
     elif call.data=='photo':
-        bot.send_message(call.message.chat.id,'متنی که می خوای روی تصویر باشه رو برام بفرست \n الان جادوی نئو رو میبینی ✨')   
-        @bot.message_handler()  
-        def text(message):
-            bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
-            my_text=message.text
-            generate_img(my_text,message,mode="post")
-                     
-    elif call.data=='video':
-        bot.send_message(call.message.chat.id,'متنی که می خوای روی ویدیو باشه رو برام بفرست \n الان جادوی نئو رو میبینی ✨')
-        @bot.message_handler()  
-        def video(message):
-            bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
-            my_text=message.text
-            result=generate_img(my_text,message,mode="video")
-            make_video(message,result)
+        Cursor.execute(
+        "UPDATE users SET state = ? WHERE chat_id = ?",
+        ('photo', call.message.chat.id)
+        )
+        db.MAIN_DB.commit()
 
+        bot.send_message(call.message.chat.id,'متنی که می خوای روی تصویر باشه رو برام بفرست \n الان جادوی نئو رو میبینی ✨')   
+        
+    elif call.data=='video':
+        Cursor.execute(
+        "UPDATE users SET state = ? WHERE chat_id = ?",
+        ('video', call.message.chat.id)
+        )
+        db.MAIN_DB.commit()
+
+        bot.send_message(call.message.chat.id,'متنی که می خوای روی ویدیو باشه رو برام بفرست \n الان جادوی نئو رو میبینی ✨')
+       
     elif call.data=='color':
         choose_color(call)
     elif call.data=='font':
@@ -94,6 +95,33 @@ def call_back(call):
         set_background(call)
   
 # endregion
+
+# test_handler
+@bot.message_handler(content_types=['text'])
+def handle_text(message):
+    Cursor.execute(
+        "SELECT state FROM users WHERE chat_id = ?",
+        (message.chat.id,)
+    )
+
+    result = Cursor.fetchone()
+    if not result:
+        return
+
+    state = result[3]
+    if state=='photo':
+        bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
+        my_text=message.text
+        generate_img(my_text,message,mode="post")
+
+    elif state=='video':
+        bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
+        my_text=message.text
+        result=generate_img(my_text,message,mode="video")
+        make_video(message,result)
+        
+
+
 
 
 # region settings_menu
