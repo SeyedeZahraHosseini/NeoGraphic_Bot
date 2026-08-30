@@ -341,7 +341,7 @@ def generate_img(my_text,message,mode):
             img_size=(1080, 1080)
             abaad=(540,540)
     elif mode=="video":
-        img_size=(1080, ~)
+        img_size=(1080, 1920)
         abaad=(540,960)
     
     if background_type == "color":
