@@ -108,7 +108,7 @@ def handle_text(message):
     if not result:
         return
 
-    state = result[3]
+    state = result[0]
     if state=='photo':
         bot.send_message(message.chat.id,'گر صبر کنی ز غوره حلوا سازم...')
         my_text=message.text
